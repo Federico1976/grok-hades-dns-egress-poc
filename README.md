@@ -172,24 +172,7 @@ Un attaccante che possa indurre l’esecuzione di codice nel sandbox (es. tramit
 - codificarne il contenuto in query DNS,
 - e trasmetterlo a infrastruttura esterna controllata.
 
-Nel PoC è stato usato solo un canary controllato dal ricercatore, ma il meccanismo è generale e si applica a:
 
-- file contenenti dati sensibili,
-- output di comandi,
-- listing di directory,
-- o qualsiasi altra informazione raggiungibile dal codice nel sandbox.
-
-Questo crea un rischio di **confidenzialità** per i dati gestiti dalla piattaforma.
-
-## Limitazioni del PoC
-
-- Sono stati usati solo file e dati canary controllati dal ricercatore.
-- Non sono stati accessi:
-  - credential,
-  - token,
-  - metadata service,
-  - né dati di terze parti o di altri utenti.
-- Il PoC è stato eseguito in un ambiente di test dedicato.
 
 - ## Script PoC
 
@@ -200,19 +183,6 @@ Lo script completo usato per il test è disponibile in:
 Questo script è fornito esclusivamente a scopo di ricerca e didattica.  
 Utilizzarlo solo in ambienti di test autorizzati e mai per esfiltrare dati reali o sensibili.
 
-## Usage (ambiente di test)
-
-In un ambiente di test controllato (es. laboratorio locale, VM isolata):
-
-```bash
-# Clona la repository
-git clone https://github.com/Federico1976/grok-hades-dns-egress-poc.git
-cd grok-hades-dns-egress-poc
-
-# Esegui lo script (richiede Python 3 e accesso a internet)
-python3 poc_dns_oast.py
-```
-
 Lo script:
 
 - codifica un valore canary in etichette DNS,
@@ -221,24 +191,7 @@ Lo script:
 
 Per un test realistico, il dominio OAST deve essere sotto il controllo del ricercatore (es. Interactsh o un server DNS proprio).
 
-## Raccomandazioni
-
-Per allineare il comportamento reale al boundary dichiarato (“no external network access”), si raccomanda di:
-
-1. **Bloccare tutto l’egress di rete per il code execution sandbox**  
-   - Nessun accesso diretto a internet (DNS incluso).
-   - Se serve rete per funzionalità specifiche, usare:
-     - proxy controllati,
-     - allowlist stretta di domini/IP,
-     - e logging completo.
-
-2. **Rafforzare l’isolamento del filesystem**  
-   - Limitare l’accesso a directory temporanee effimere.
-   - Evitare che file uploadati siano leggibili come path assoluti da codice generico.
-
-3. **Monitoring e detection**  
-   - Loggare tutte le connessioni di rete originate dal sandbox (DNS, HTTP, ecc.).
-   - Introdurre alert su pattern anomali (es. molte query DNS verso domini sconosciuti).
+.
 
 ## Riferimenti
 
@@ -248,4 +201,4 @@ Per allineare il comportamento reale al boundary dichiarato (“no external netw
 
 ## Autore
 
-Federico Brasili (@Federico1976) – security researcher / bug hunter.
+Federico Brasili (@Federico1976) 
