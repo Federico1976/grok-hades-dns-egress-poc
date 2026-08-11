@@ -191,6 +191,36 @@ Questo crea un rischio di **confidenzialità** per i dati gestiti dalla piattafo
   - né dati di terze parti o di altri utenti.
 - Il PoC è stato eseguito in un ambiente di test dedicato.
 
+- ## Script PoC
+
+Lo script completo usato per il test è disponibile in:
+
+- [`poc_dns_oast.py`](poc_dns_oast.py)
+
+Questo script è fornito esclusivamente a scopo di ricerca e didattica.  
+Utilizzarlo solo in ambienti di test autorizzati e mai per esfiltrare dati reali o sensibili.
+
+## Usage (ambiente di test)
+
+In un ambiente di test controllato (es. laboratorio locale, VM isolata):
+
+```bash
+# Clona la repository
+git clone https://github.com/Federico1976/grok-hades-dns-egress-poc.git
+cd grok-hades-dns-egress-poc
+
+# Esegui lo script (richiede Python 3 e accesso a internet)
+python3 poc_dns_oast.py
+```
+
+Lo script:
+
+- codifica un valore canary in etichette DNS,
+- invia una query A verso un resolver pubblico,
+- e stampa l’esito della risposta DNS.
+
+Per un test realistico, il dominio OAST deve essere sotto il controllo del ricercatore (es. Interactsh o un server DNS proprio).
+
 ## Raccomandazioni
 
 Per allineare il comportamento reale al boundary dichiarato (“no external network access”), si raccomanda di:
